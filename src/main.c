@@ -12,7 +12,7 @@ int main() {
 
   initscr();
   noecho();
-  printw("Hello World!");
+
   while (running) {
     int ch = getch(); // Get user input
 
@@ -34,6 +34,7 @@ int main() {
     move(editor.cursor_y_pos, editor.cursor_x_pos);
     refresh();
   }
+  
   move(0, 0);
   printw("Exited");
   getch();
