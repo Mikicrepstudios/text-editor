@@ -12,8 +12,8 @@ enum Directions {
 };
 
 struct Editor {
-  char* buffer;
-  char* curr_file_path;
+  char *buffer;
+  char *curr_file_path;
   size_t start_line;
   size_t cursor_y_pos;
   size_t cursor_x_pos;
@@ -21,10 +21,10 @@ struct Editor {
   size_t buffer_capacity;
 };
 
-// We return an 8-bit integer as a status code
-// Everything which isn't 0 is an error
-int8_t change_file(struct Editor, char* file_path);
-int8_t write_file(struct Editor);
-int8_t move_cursor(struct Editor, enum Directions dir);
+struct Editor* initialize_editor();
+int8_t switch_file(struct Editor *editor, char *file_path);
+int8_t write_file(struct Editor *editor);
+int8_t move_cursor(struct Editor *editor, enum Directions dir);
+int8_t write_to_buffer(struct Editor *editor, char* data, size_t size);
 
 #endif
