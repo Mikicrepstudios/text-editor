@@ -1,0 +1,18 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/clang",
+      "-Wall",
+      "-Wextra",
+      "-Iinclude",
+      "-fsanitize=address,undefined",
+      "-c",
+      "-o",
+      "build/main.o",
+      "src/main.c"
+    ],
+    "directory": "/home/tom/text-editor",
+    "file": "/home/tom/text-editor/src/main.c",
+    "output": "/home/tom/text-editor/build/main.o"
+  }
+]
