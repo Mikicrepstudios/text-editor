@@ -18,10 +18,10 @@ int main() {
   while (running) {
     int ch = getch(); // Get user input
 
-    Render();
+    Render(editor); // Render text and other elements
+    move(editor.cursor_y_pos, editor.cursor_x_pos); // Render will mess up cursor position so just place it where it should be
     HandleInput(&editor, &running, ch); // Handles user input like moving cursor
 
-    move(editor.cursor_y_pos, editor.cursor_x_pos);
     refresh();
   }
 
