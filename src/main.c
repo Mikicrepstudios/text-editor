@@ -18,6 +18,7 @@ int main() {
   while (running) {
     int ch = getch(); // Get user input
 
+    Render();
     HandleInput(&editor, &running, ch); // Handles user input like moving cursor
 
     move(editor.cursor_y_pos, editor.cursor_x_pos);
