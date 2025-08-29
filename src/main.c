@@ -13,6 +13,7 @@ int main() {
 
   initscr();
   noecho();
+  keypad(stdscr, TRUE);
 
   while (running) {
     int ch = getch(); // Get user input
