@@ -32,4 +32,3 @@ int main() {
   endwin();
 	return 0;
 }
-// h 104 j 106 k 107 l 108
