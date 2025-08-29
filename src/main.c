@@ -16,6 +16,7 @@ int main() {
   keypad(stdscr, TRUE);
 
   while (running) {
+    timeout(0); // Dont wait for input
     int ch = getch(); // Get user input
 
     Render(editor); // Render text and other elements
