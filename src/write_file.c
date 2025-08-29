@@ -8,9 +8,9 @@ int8_t write_file(struct Editor *editor) {
   if (!fptr)
     return -1;
 
-  printf("cacacity: %zu\n", editor->buffer_capacity);
-  fwrite(editor->buffer, 1, editor->buffer_size, fptr);
-  puts(editor->buffer);
+  for (struct LineNode* line = editor->lines; line != NULL; line = line->next_line) {
+    fprintf(fptr, "%s", line->line_text);
+  }
 
   fclose(fptr);
   return 0;

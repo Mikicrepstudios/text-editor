@@ -1,35 +1,45 @@
 #include <stdio.h>
+#include <string.h>
 
 #include "internal.h"
 
-
 int8_t switch_file(struct Editor *editor, char *file_path) {
-  FILE* fptr = fopen(file_path, "ab+"); // Open file with read permissions
+  FILE *fptr = fopen(file_path, "ab+"); // Open file with read permissions
+                                        //
   if (!fptr)
     return -1;
 
-  // Get the size of the file in bytes
-  fseek(fptr, 0L, SEEK_END);
-  size_t file_size = ftell(fptr);
-  rewind(fptr);
+  ssize_t read;
+  size_t len = 0;
+  char *line = NULL;
 
-  editor->buffer_capacity = file_size;
-  editor->buffer_size = 0;
+  editor->lines = malloc(sizeof(*editor->lines));
+  struct LineNode *node = editor->lines;
 
-  // If memory was already allocated for the buffer, free it
-  if (editor->buffer != NULL)
-    free(editor->buffer);
-
-  editor->buffer = malloc(editor->buffer_capacity + 1);
-
-  if (!editor->buffer) {
+  if (!node) {
     fclose(fptr);
     return -1;
   }
 
-  size_t len = fread(editor->buffer, 1, sizeof(*editor->buffer) * editor->buffer_capacity, fptr);
+  struct LineNode *prev_node = node;
+  while ((read = getline(&line, &len, fptr)) != -1) {
+    node->line_length = read;
+    node->line_capacity = read;
+    node->line_text = malloc(len);
+    strncpy(node->line_text, line, len);
+    node->next_line = malloc(sizeof(*editor->lines));
+    if (!node->next_line) {
+      fclose(fptr);
+      return -1;
+    }
+    puts(node->line_text);
+    prev_node = node;
+    node = node->next_line;
+  }
 
-  editor->buffer[len] = '\0';
+  free(line);
+  free(node);
+  prev_node->next_line = NULL;
 
   editor->curr_file_path = file_path;
 
