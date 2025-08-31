@@ -22,7 +22,7 @@ int main() {
     timeout(0); // Dont wait for input
     int ch = getch(); // Get user input
 
-    Render(editor); // Render text and other elements
+    Render(&editor); // Render text and other elements
     move(editor.cursor_y_pos, editor.cursor_x_pos); // Render will mess up cursor position so just place it where it should be
     HandleInput(&editor, &running, ch); // Handles user input like moving cursor
 
