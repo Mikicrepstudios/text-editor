@@ -5,7 +5,6 @@
 
 int8_t switch_file(struct Editor *editor, char *file_path) {
   FILE *fptr = fopen(file_path, "ab+"); // Open file with read permissions
-                                        //
   if (!fptr)
     return -1;
 
@@ -32,13 +31,13 @@ int8_t switch_file(struct Editor *editor, char *file_path) {
       fclose(fptr);
       return -1;
     }
-    puts(node->line_text);
     prev_node = node;
     node = node->next_line;
   }
 
   free(line);
   free(node);
+
   prev_node->next_line = NULL;
 
   editor->curr_file_path = file_path;

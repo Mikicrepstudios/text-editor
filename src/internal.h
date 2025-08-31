@@ -36,5 +36,7 @@ int8_t write_file(struct Editor *editor);
 int8_t move_cursor(struct Editor *editor, enum Directions dir);
 int8_t change_line(struct Editor *editor, char *new_line, size_t new_line_size,
                    size_t line_index);
+int8_t insert_line(struct Editor *editor, size_t index);
+void free_editor(struct Editor *editor);
 
 #endif

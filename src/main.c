@@ -7,40 +7,53 @@
 
 int main() {
   bool running = true;
-  struct Editor editor = {};
+  struct Editor *editor = initialize_editor();
 
-  editor.cursor_x_pos = 0;
-  editor.cursor_y_pos = 0;
+  switch_file(editor, "makefile");
 
-  initscr();
-  noecho();
+  insert_line(editor, 3);
 
-  while (running) {
-    int ch = getch(); // Get user input
+  change_line(editor, "Hello World!", sizeof("Hello World!"), 3);
 
-    // e, exit
-    if(ch == 101) running = false;
+  for (struct LineNode *line = editor->lines; line; line = line->next_line)
+    printf("%s", line->line_text);
 
-    // h, move cursor left
-    if(ch == 104 && editor.cursor_x_pos != 0) editor.cursor_x_pos -= 1;
-
-    // j, move cursor down
-    if(ch == 106) editor.cursor_y_pos += 1;
-
-    // k, move cursor up
-    if(ch == 107 && editor.cursor_y_pos != 0) editor.cursor_y_pos -= 1;
-
-    // l, move cursor right
-    if(ch == 108) editor.cursor_x_pos += 1;
-
-    move(editor.cursor_y_pos, editor.cursor_x_pos);
-    refresh();
-  }
   
-  move(0, 0);
-  printw("Exited");
-  getch();
-  endwin();
+  
+
+  //editor.cursor_x_pos = 0;
+  //editor.cursor_y_pos = 0;
+
+  //initscr();
+  //noecho();
+
+  //while (running) {
+  //  int ch = getch(); // Get user input
+
+  //  // e, exit
+  //  if(ch == 101) running = false;
+
+  //  // h, move cursor left
+  //  if(ch == 104 && editor.cursor_x_pos != 0) editor.cursor_x_pos -= 1;
+
+  //  // j, move cursor down
+  //  if(ch == 106) editor.cursor_y_pos += 1;
+
+  //  // k, move cursor up
+  //  if(ch == 107 && editor.cursor_y_pos != 0) editor.cursor_y_pos -= 1;
+
+  //  // l, move cursor right
+  //  if(ch == 108) editor.cursor_x_pos += 1;
+
+  //  move(editor.cursor_y_pos, editor.cursor_x_pos);
+  //  refresh();
+  //}
+  //
+  //move(0, 0);
+  //printw("Exited");
+  //getch();
+  //endwin();
+  free_editor(editor);
 	return 0;
 }
 // h 104 j 106 k 107 l 108
