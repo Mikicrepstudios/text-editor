@@ -2,7 +2,6 @@
 #include <stdio.h>
 
 int8_t write_file(struct Editor *editor) {
-  puts(editor->curr_file_path);
   FILE *fptr = fopen(editor->curr_file_path, "w+");
 
   if (!fptr)
