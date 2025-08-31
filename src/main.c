@@ -6,10 +6,16 @@
 #include "frontend.h"
 #include "internal.h"
 
-int main() {
+int main(int argc, char *argv[]) {
   bool running = true;
   struct Editor editor = *initialize_editor();
-  switch_file(&editor, "./testfile");
+  
+  if (argc < 2) {
+    fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
+    return 1;
+  }
+
+  switch_file(&editor, argv[1]);
 
   editor.cursor_x_pos = 0;
   editor.cursor_y_pos = 0;
