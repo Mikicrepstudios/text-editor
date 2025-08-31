@@ -23,6 +23,9 @@ bin:
 compile_commands.json: clean
 	bear -- make $(BIN)
 
+open:
+	./bin/editr
+
 clean:
 	rm -rf build bin compile_commands.json
 
