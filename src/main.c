@@ -8,7 +8,8 @@
 
 int main() {
   bool running = true;
-  struct Editor editor = {};
+  struct Editor editor = *initialize_editor();
+  switch_file(&editor, "./testfile");
 
   editor.cursor_x_pos = 0;
   editor.cursor_y_pos = 0;
