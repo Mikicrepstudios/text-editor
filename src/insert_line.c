@@ -13,8 +13,6 @@ int8_t insert_line(struct Editor *editor, size_t index) {
   if (i != index)
     return -1;
 
-  printf("INDEX: %zu\n", i);
-
   struct LineNode *new_line = malloc(sizeof(*new_line));
 
   new_line->line_capacity = 2;
@@ -23,10 +21,8 @@ int8_t insert_line(struct Editor *editor, size_t index) {
   new_line->line_text[0] = '\n';
   new_line->line_text[1] = '\0';
   new_line->next_line = line->next_line;
-  printf("%p, %s\n", new_line->next_line, new_line->next_line->line_text);
 
   line->next_line = new_line;
-  printf("%p, %s\n", line->next_line, line->next_line->line_text);
 
   return 0;
 }

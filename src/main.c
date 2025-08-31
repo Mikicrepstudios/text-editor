@@ -15,8 +15,7 @@ int main() {
 
   change_line(editor, "Hello World!", sizeof("Hello World!"), 3);
 
-  for (struct LineNode *line = editor->lines; line; line = line->next_line)
-    printf("%s", line->line_text);
+  puts(get_line(editor, 3)->line_text);
 
   
   

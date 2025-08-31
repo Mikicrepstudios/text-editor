@@ -31,6 +31,7 @@ struct Editor {
 };
 
 struct Editor *initialize_editor();
+struct LineNode *get_line(struct Editor *editor, size_t index);
 int8_t switch_file(struct Editor *editor, char *file_path);
 int8_t write_file(struct Editor *editor);
 int8_t move_cursor(struct Editor *editor, enum Directions dir);
