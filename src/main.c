@@ -1,5 +1,7 @@
-#include <stdio.h>
+#include "internal.h"
+
 #include <ncurses.h>
+#include <stdio.h>
 
 #include "frontend.h"
 #include "internal.h"
@@ -30,5 +32,6 @@ int main() {
   printw("Exited");
   getch();
   endwin();
+  
 	return 0;
 }
