@@ -32,7 +32,6 @@ int8_t switch_file(struct Editor *editor, char *file_path) {
       fclose(fptr);
       return -1;
     }
-    puts(node->line_text);
     prev_node = node;
     node = node->next_line;
   }
