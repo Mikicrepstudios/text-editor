@@ -1,7 +1,7 @@
 PROGRAM = editr
 
 CC := clang
-CFLAGS := -Wall -Wextra -Iinclude -fsanitize=address,undefined -lncurses
+CFLAGS := -Wall -Wextra -Iinclude -fsanitize=address,undefined -lncurses -ggdb
 SRC := $(wildcard src/*.c)
 OBJ := $(patsubst src/%.c, build/%.o, $(SRC))
 BIN := bin/$(PROGRAM)
@@ -28,3 +28,9 @@ open:
 
 clean:
 	rm -rf build bin compile_commands.json
+
+run: all
+	@./$(BIN)
+
+.PHONY:
+	run clean all

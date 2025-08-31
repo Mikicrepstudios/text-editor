@@ -1,5 +1,7 @@
-#include <stdio.h>
+#include "internal.h"
+
 #include <ncurses.h>
+#include <stdio.h>
 
 #include "internal.h"
 
