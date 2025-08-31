@@ -6,19 +6,13 @@
 #include "internal.h"
 
 int main() {
-  bool running = true;
   struct Editor *editor = initialize_editor();
 
   switch_file(editor, "makefile");
 
-  insert_line(editor, 3);
+  //insert_line(editor, 3);
 
-  change_line(editor, "Hello World!", sizeof("Hello World!"), 3);
-
-  puts(get_line(editor, 3)->line_text);
-
-  
-  
+  //change_line(editor, "Hello World!", sizeof("Hello World!"), 3);
 
   //editor.cursor_x_pos = 0;
   //editor.cursor_y_pos = 0;
