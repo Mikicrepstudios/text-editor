@@ -10,6 +10,5 @@ int8_t change_line(struct Editor *editor, char *new_line, size_t new_line_size, 
   }
 
   strncpy(line->line_text, new_line, new_line_size);
-  
-  return 0;
+  return SUCCESS;
 }

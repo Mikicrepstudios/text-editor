@@ -2,11 +2,10 @@
 #include <stdio.h>
 
 int8_t write_file(struct Editor *editor) {
-  puts(editor->curr_file_path);
   FILE *fptr = fopen(editor->curr_file_path, "w+");
 
   if (!fptr)
-    return -1;
+    return ERR_ERRNO;
 
   for (struct LineNode* line = editor->lines; line != NULL; line = line->next_line) {
     fprintf(fptr, "%s", line->line_text);

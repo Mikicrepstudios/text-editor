@@ -11,7 +11,7 @@ int8_t insert_line(struct Editor *editor, size_t index) {
     line = line->next_line;
 
   if (i != index)
-    return -1;
+    return ERR_OUB;
 
   struct LineNode *new_line = malloc(sizeof(*new_line));
 
@@ -23,5 +23,5 @@ int8_t insert_line(struct Editor *editor, size_t index) {
 
   line->next_line = new_line;
 
-  return 0;
+  return SUCCESS;
 }

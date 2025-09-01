@@ -7,7 +7,7 @@
 int8_t switch_file(struct Editor *editor, char *file_path) {
   FILE *fptr = fopen(file_path, "ab+"); // Open file with read permissions
   if (!fptr)
-    return -1;
+    return ERR_ERRNO;
 
   ssize_t read;
   size_t len = 0;
@@ -17,7 +17,7 @@ int8_t switch_file(struct Editor *editor, char *file_path) {
 
   if (!editor->lines) {
     fclose(fptr);
-    return -1;
+    return ERR_ERRNO;
   }
 
   struct LineNode *node = editor->lines;
@@ -27,7 +27,7 @@ int8_t switch_file(struct Editor *editor, char *file_path) {
   uint32_t index = 0;
   while ((read = getline(&line, &len, fptr)) != -1) {
     for (char *ch = line; *ch != '\0'; ++ch) {
-      file_hash += *ch * pow(2, index % 29);
+      file_hash += *ch * pow(2, index % PRIME_HASH_NUMBER);
       ++index;
     }
     
@@ -41,7 +41,7 @@ int8_t switch_file(struct Editor *editor, char *file_path) {
     if (!node->line_text) {
       fclose(fptr);
       free(editor->lines);
-      return -1;
+      return ERR_ERRNO;
     }
 
     strncpy(node->line_text, line, read);
@@ -50,7 +50,7 @@ int8_t switch_file(struct Editor *editor, char *file_path) {
     if (!node->next_line) {
       fclose(fptr);
       free(editor->lines);
-      return -1;
+      return ERR_ERRNO;
     }
     prev_node = node;
     node = node->next_line;
@@ -66,5 +66,5 @@ int8_t switch_file(struct Editor *editor, char *file_path) {
   editor->curr_file_path = file_path;
 
   fclose(fptr);
-  return 0;
+  return SUCCESS;
 }

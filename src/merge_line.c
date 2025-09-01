@@ -13,11 +13,15 @@ int8_t merge_line(struct Editor *editor, size_t merging_line) {
   struct LineNode *next_line = line->next_line;
 
   if (i + 1 != merging_line || next_line == NULL || next_line->next_line == NULL)
-    return -1;
+    return ERR_OUB;
 
-  line->line_text =
+  char *tmp =
       realloc(line->line_text,
               strlen(line->line_text) + strlen(next_line->line_text) + 1);
+  if (!tmp)
+    return ERR_ERRNO;
+
+  line->line_text = tmp;
 
   strcat(line->line_text, next_line->line_text);
 

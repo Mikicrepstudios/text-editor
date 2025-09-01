@@ -4,10 +4,10 @@
 
 #include "internal.h"
 
-bool has_changed(struct Editor *editor) {
+int8_t has_changed(struct Editor *editor) {
   FILE *fptr = fopen(editor->curr_file_path, "ab+"); // Open file with read permissions
   if (!fptr)
-    return -1;
+    return ERR_ERRNO;
 
   ssize_t read;
   size_t len = 0;
@@ -17,7 +17,7 @@ bool has_changed(struct Editor *editor) {
   uint32_t index = 0;
   while ((read = getline(&line, &len, fptr)) != -1) {
     for (char *ch = line; *ch != '\0'; ++ch) {
-      file_hash += *ch * pow(2, index % 29);
+      file_hash += *ch * pow(2, index % PRIME_HASH_NUMBER);
       ++index;
     }
   }
