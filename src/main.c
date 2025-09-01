@@ -3,6 +3,7 @@
 #include <ncurses.h>
 #include <stdio.h>
 
+#include "frontend.h"
 #include "internal.h"
 
 int main() {
@@ -11,41 +12,25 @@ int main() {
   switch_file(editor, "test.file");
   merge_line(editor, 5);
 
-  for (struct LineNode *line = editor->lines; line; line = line->next_line)
-    puts(line->line_text);
+  initscr();
+  noecho();
+  keypad(stdscr, TRUE);
 
-  // editor.cursor_x_pos = 0;
-  // editor.cursor_y_pos = 0;
+  while (running) {
+    timeout(0); // Dont wait for input
+    int ch = getch(); // Get user input
 
-  // initscr();
-  // noecho();
+    Render(editor); // Render text and other elements
+    move(editor.cursor_y_pos, editor.cursor_x_pos); // Render will mess up cursor position so just place it where it should be
+    HandleInput(&editor, &running, ch); // Handles user input like moving cursor
 
-  // while (running) {
-  //   int ch = getch(); // Get user input
+    refresh();
+  }
 
-  //  // e, exit
-  //  if(ch == 101) running = false;
-
-  //  // h, move cursor left
-  //  if(ch == 104 && editor.cursor_x_pos != 0) editor.cursor_x_pos -= 1;
-
-  //  // j, move cursor down
-  //  if(ch == 106) editor.cursor_y_pos += 1;
-
-  //  // k, move cursor up
-  //  if(ch == 107 && editor.cursor_y_pos != 0) editor.cursor_y_pos -= 1;
-  //  // l, move cursor right
-  //  if(ch == 108) editor.cursor_x_pos += 1;
-
-  //  move(editor.cursor_y_pos, editor.cursor_x_pos);
-  //  refresh();
-  //}
-  //
-  // move(0, 0);
-  // printw("Exited");
-  // getch();
-  // endwin();
-  free_editor(editor);
-  return 0;
+  move(0, 0);
+  printw("Exited");
+  getch();
+  endwin();
+  
+	return 0;
 }
-// h 104 j 106 k 107 l 108
