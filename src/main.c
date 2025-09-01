@@ -7,12 +7,10 @@
 #include "internal.h"
 
 int main() {
-  bool running = true;
-  struct Editor editor = *initialize_editor();
-  switch_file(&editor, "./testfile");
+  struct Editor *editor = initialize_editor();
 
-  editor.cursor_x_pos = 0;
-  editor.cursor_y_pos = 0;
+  switch_file(editor, "test.file");
+  merge_line(editor, 5);
 
   initscr();
   noecho();

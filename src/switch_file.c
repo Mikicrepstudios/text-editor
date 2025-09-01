@@ -1,3 +1,4 @@
+#include <math.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -5,43 +6,65 @@
 
 int8_t switch_file(struct Editor *editor, char *file_path) {
   FILE *fptr = fopen(file_path, "ab+"); // Open file with read permissions
-                                        //
   if (!fptr)
-    return -1;
+    return ERR_ERRNO;
 
   ssize_t read;
   size_t len = 0;
   char *line = NULL;
 
   editor->lines = malloc(sizeof(*editor->lines));
-  struct LineNode *node = editor->lines;
 
-  if (!node) {
+  if (!editor->lines) {
     fclose(fptr);
-    return -1;
+    return ERR_ERRNO;
   }
 
+  struct LineNode *node = editor->lines;
+
   struct LineNode *prev_node = node;
+  uint64_t file_hash = 0;
+  uint32_t index = 0;
   while ((read = getline(&line, &len, fptr)) != -1) {
+    for (char *ch = line; *ch != '\0'; ++ch) {
+      file_hash += *ch * pow(2, index % PRIME_HASH_NUMBER);
+      ++index;
+    }
+
     node->line_length = read;
     node->line_capacity = read;
-    node->line_text = malloc(len);
-    strncpy(node->line_text, line, len);
+
+    if (read >= 1 && line[read - 1] == '\n')
+      line[read - 1] = '\0';
+
+    node->line_text = malloc(read);
+    if (!node->line_text) {
+      fclose(fptr);
+      free(editor->lines);
+      return ERR_ERRNO;
+    }
+
+    strncpy(node->line_text, line, read);
+
     node->next_line = malloc(sizeof(*editor->lines));
     if (!node->next_line) {
       fclose(fptr);
-      return -1;
+      free(editor->lines);
+      return ERR_ERRNO;
     }
     prev_node = node;
     node = node->next_line;
   }
 
+  editor->original_hash = file_hash;
+
   free(line);
   free(node);
+
   prev_node->next_line = NULL;
 
   editor->curr_file_path = file_path;
 
   fclose(fptr);
-  return 0;
+  return SUCCESS;
 }
