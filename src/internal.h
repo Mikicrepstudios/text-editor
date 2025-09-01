@@ -39,6 +39,7 @@ int8_t move_cursor(struct Editor *editor, enum Directions dir);
 int8_t change_line(struct Editor *editor, char *new_line, size_t new_line_size,
                    size_t line_index);
 int8_t insert_line(struct Editor *editor, size_t index);
+int8_t merge_line(struct Editor *editor, size_t merging_line); // Merges a line with the line before it
 bool has_changed(struct Editor *editor); // Checks whether or not the file in question has changed due to another program
 void free_editor(struct Editor *editor);
 

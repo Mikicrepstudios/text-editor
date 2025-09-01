@@ -8,20 +8,21 @@
 int main() {
   struct Editor *editor = initialize_editor();
 
-  switch_file(editor, "makefile");
+  switch_file(editor, "test.file");
+  merge_line(editor, 5);
 
-  //insert_line(editor, 3);
+  for (struct LineNode *line = editor->lines; line; line = line->next_line)
+    puts(line->line_text);
 
-  //change_line(editor, "Hello World!", sizeof("Hello World!"), 3);
 
-  //editor.cursor_x_pos = 0;
-  //editor.cursor_y_pos = 0;
+  // editor.cursor_x_pos = 0;
+  // editor.cursor_y_pos = 0;
 
-  //initscr();
-  //noecho();
+  // initscr();
+  // noecho();
 
-  //while (running) {
-  //  int ch = getch(); // Get user input
+  // while (running) {
+  //   int ch = getch(); // Get user input
 
   //  // e, exit
   //  if(ch == 101) running = false;
@@ -34,7 +35,6 @@ int main() {
 
   //  // k, move cursor up
   //  if(ch == 107 && editor.cursor_y_pos != 0) editor.cursor_y_pos -= 1;
-
   //  // l, move cursor right
   //  if(ch == 108) editor.cursor_x_pos += 1;
 
@@ -42,11 +42,11 @@ int main() {
   //  refresh();
   //}
   //
-  //move(0, 0);
-  //printw("Exited");
-  //getch();
-  //endwin();
+  // move(0, 0);
+  // printw("Exited");
+  // getch();
+  // endwin();
   free_editor(editor);
-	return 0;
+  return 0;
 }
 // h 104 j 106 k 107 l 108
