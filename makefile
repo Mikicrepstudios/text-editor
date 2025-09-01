@@ -7,6 +7,7 @@ OBJ := $(patsubst src/%.c, build/%.o, $(SRC))
 BIN := bin/$(PROGRAM)
 
 all: $(BIN) compile_commands.json
+	format
 
 $(BIN): $(OBJ) | bin
 	$(CC) $(CFLAGS) $^ -o $@
@@ -28,6 +29,9 @@ open:
 
 clean:
 	rm -rf build bin compile_commands.json
+
+format:
+	@find src/ -iname "*.h" -o -iname "*.c" | xargs clang-format -i
 
 run: all
 	@./$(BIN)

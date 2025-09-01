@@ -1,7 +1,7 @@
 #include "internal.h"
 
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 int8_t insert_line(struct Editor *editor, size_t index) {

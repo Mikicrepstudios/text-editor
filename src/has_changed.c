@@ -5,7 +5,8 @@
 #include "internal.h"
 
 int8_t has_changed(struct Editor *editor) {
-  FILE *fptr = fopen(editor->curr_file_path, "ab+"); // Open file with read permissions
+  FILE *fptr = fopen(editor->curr_file_path,
+                     "ab+"); // Open file with read permissions
   if (!fptr)
     return ERR_ERRNO;
 

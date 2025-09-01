@@ -1,6 +1,6 @@
 #include "internal.h"
 
-struct Editor* initialize_editor() {
+struct Editor *initialize_editor() {
   struct Editor *editor = malloc(sizeof(*editor));
   editor->curr_file_path = NULL;
   editor->cursor_x_pos = 0;

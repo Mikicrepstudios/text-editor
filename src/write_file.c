@@ -7,7 +7,8 @@ int8_t write_file(struct Editor *editor) {
   if (!fptr)
     return ERR_ERRNO;
 
-  for (struct LineNode* line = editor->lines; line != NULL; line = line->next_line) {
+  for (struct LineNode *line = editor->lines; line != NULL;
+       line = line->next_line) {
     fprintf(fptr, "%s", line->line_text);
   }
 

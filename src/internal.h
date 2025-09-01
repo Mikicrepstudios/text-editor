@@ -1,17 +1,16 @@
 #ifndef INTERNAL_EDITR_H
 #define INTERNAL_EDITR_H
 
+#include <stdbool.h>
 #include <stdint.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 #define PRIME_HASH_NUMBER 179
 
-
 enum Errors {
-  SUCCESS = 0, // No error
+  SUCCESS = 0,    // No error
   ERR_ERRNO = -1, // Error is handled by errno
-  ERR_OUB, // Out of bounds error
+  ERR_OUB,        // Out of bounds error
 }; // Helper enum to define some errors for error handling
 enum Directions {
   UP = 0,
@@ -47,9 +46,13 @@ int8_t move_cursor(struct Editor *editor, enum Directions dir);
 int8_t change_line(struct Editor *editor, char *new_line, size_t new_line_size,
                    size_t line_index);
 int8_t insert_line(struct Editor *editor, size_t index);
-int8_t merge_line(struct Editor *editor, size_t merging_line); // Merges a line with the line before it
-int8_t has_changed(struct Editor *editor); // Checks whether or not the file in question has changed due to another program
-                                           // The return value is 0 if false, 1 if true, all non-positive values are errors
+int8_t merge_line(struct Editor *editor,
+                  size_t merging_line); // Merges a line with the line before it
+int8_t has_changed(
+    struct Editor
+        *editor); // Checks whether or not the file in question has changed due
+                  // to another program The return value is 0 if false, 1 if
+                  // true, all non-positive values are errors
 void free_editor(struct Editor *editor);
 
 #endif

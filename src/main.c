@@ -14,7 +14,6 @@ int main() {
   for (struct LineNode *line = editor->lines; line; line = line->next_line)
     puts(line->line_text);
 
-
   // editor.cursor_x_pos = 0;
   // editor.cursor_y_pos = 0;
 

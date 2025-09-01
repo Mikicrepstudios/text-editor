@@ -30,7 +30,7 @@ int8_t switch_file(struct Editor *editor, char *file_path) {
       file_hash += *ch * pow(2, index % PRIME_HASH_NUMBER);
       ++index;
     }
-    
+
     node->line_length = read;
     node->line_capacity = read;
 
