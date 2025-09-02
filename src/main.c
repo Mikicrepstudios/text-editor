@@ -9,7 +9,7 @@
 int main(int argc, char *argv[]) {
   bool running = true;
   struct Editor editor = *initialize_editor();
-  
+
   if (argc < 2) {
     fprintf(stderr, "Usage: %s <filename>\n", argv[0]);
     return 1;
@@ -25,11 +25,13 @@ int main(int argc, char *argv[]) {
   keypad(stdscr, TRUE);
 
   while (running) {
-    timeout(0); // Dont wait for input
+    timeout(0);       // Dont wait for input
     int ch = getch(); // Get user input
 
     Render(&editor); // Render text and other elements
-    move(editor.cursor_y_pos, editor.cursor_x_pos); // Render will mess up cursor position so just place it where it should be
+    move(editor.cursor_y_pos,
+         editor.cursor_x_pos); // Render will mess up cursor position so just
+                               // place it where it should be
     HandleInput(&editor, &running, ch); // Handles user input like moving cursor
 
     refresh();
@@ -39,6 +41,6 @@ int main(int argc, char *argv[]) {
   printw("Exited");
   getch();
   endwin();
-  
-	return 0;
+
+  return 0;
 }
