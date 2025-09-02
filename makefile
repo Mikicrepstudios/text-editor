@@ -6,8 +6,7 @@ SRC := $(wildcard src/*.c)
 OBJ := $(patsubst src/%.c, build/%.o, $(SRC))
 BIN := bin/$(PROGRAM)
 
-all: $(BIN) compile_commands.json
-	format
+all: $(BIN) compile_commands.json format
 
 $(BIN): $(OBJ) | bin
 	$(CC) $(CFLAGS) $^ -o $@
