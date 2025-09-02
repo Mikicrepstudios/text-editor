@@ -17,7 +17,7 @@ void Render(struct Editor *editor) {
 
   // Print lines until screen fills up or list ends
   for (size_t i = 0; i < terminalHeight && currentNode != NULL; i++) {
-    printw("%s", currentNode->line_text); // print line + newline
+    printw("%s\n", currentNode->line_text); // print line + newline
     currentNode = currentNode->next_line;
   }
 
