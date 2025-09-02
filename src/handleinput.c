@@ -1,13 +1,11 @@
 #include <stdbool.h>
 #include <ncurses.h>
 
+#include "frontend.h"
 #include "internal.h"
 
 void HandleInput(struct Editor *editor, bool *running, int ch) {
     switch(ch) {
-        case 101: // E
-            *running = false; // Stops program
-            break;
         //case 104: // H
         case KEY_LEFT:
             if(editor->cursor_x_pos != 0) editor->cursor_x_pos -= 1; // Move cursor left
@@ -24,5 +22,8 @@ void HandleInput(struct Editor *editor, bool *running, int ch) {
         case KEY_RIGHT:
             editor->cursor_x_pos += 1; // Move cursor right
             break;
+
+        default:
+            HandleEditing(&editor, ch);
     }
 }

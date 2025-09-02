@@ -4,3 +4,4 @@
 
 void Render(struct Editor *editor);
 void HandleInput(struct Editor *editor, bool *running, int ch);
+void HandleEditing(struct Editor *editor, int ch);
